@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yogutide — Our Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Cormorant+SC:wght@300;400;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: #F7F4EF;
+  color: #1C1A16;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-weight: 300;
+  font-size: 18px;
+  overflow-x: hidden;
+  cursor: none;
+}
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 220px 220px;
+  opacity: 0.028;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+.cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: #1C1A16;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, opacity 0.2s ease;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  position: fixed;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(28,26,22,0.25);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease, border-color 0.3s ease;
+}
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem;
+}
+nav::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100vw; height: 100%;
+  background: #F7F4EF;
+  z-index: -1;
+}
+.nav-logo {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  color: #1C1A16;
+  text-decoration: none;
+  font-weight: 400;
+}
+.nav-links {
+  display: flex; gap: 2.5rem;
+  list-style: none;
+}
+.nav-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: rgba(28,26,22,0.5);
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover { color: #1C1A16; }
+.nav-btn {
+  display: inline-block;
+  padding: 0.5rem 1.2rem;
+  background: #1C1A16;
+  color: #F7F4EF !important;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s;
+  margin-left: 0.5rem;
+}
+.nav-btn:hover { background: #3A3630; color: #F7F4EF !important; }
+.nav-links a.active { color: #1C1A16; }
+
+/* ─── HERO ─────────────────────────────────────────────────────── */
+.story-hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 10rem 1.5rem 6rem;
+  position: relative;
+}
+.story-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: rgba(28,26,22,0.35);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: riseIn 1.2s ease 0.3s forwards;
+}
+.story-h1 {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-size: clamp(3rem, 5.5vw, 5.5rem);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: #1C1A16;
+  margin-bottom: 1.5rem;
+  max-width: 700px;
+  opacity: 0;
+  animation: riseIn 1.4s cubic-bezier(0.16,1,0.3,1) 0.5s forwards;
+}
+.story-sub {
+  font-size: 1.3rem;
+  font-style: italic;
+  color: rgba(28,26,22,0.5);
+  line-height: 1.7;
+  max-width: 520px;
+  opacity: 0;
+  animation: riseIn 1.4s ease 0.8s forwards;
+}
+
+/* ─── DIVIDER ──────────────────────────────────────────────────── */
+.section-divider {
+  display: flex; align-items: center; gap: 1.5rem;
+  padding: 0 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.div-line { flex: 1; height: 1px; background: rgba(28,26,22,0.1); }
+.div-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(28,26,22,0.15); }
+
+/* ─── TEXT SECTIONS ────────────────────────────────────────────── */
+.story-section {
+  padding: 6rem 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.story-inner { max-width: 620px; }
+.section-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: rgba(28,26,22,0.35);
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.section-title {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  line-height: 1.1;
+  color: #1C1A16;
+  margin-bottom: 1.5rem;
+}
+.section-tagline {
+  font-style: italic;
+  font-size: 1.2rem;
+  color: rgba(28,26,22,0.4);
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.04em;
+}
+.story-body p {
+  font-size: 1.2rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(28,26,22,0.6);
+  margin-bottom: 1.5rem;
+}
+.story-body p em {
+  font-style: normal;
+  color: #1C1A16;
+}
+
+/* ─── QUOTE BLOCK ──────────────────────────────────────────────── */
+.quote-block {
+  border-left: 1.5px solid rgba(28,26,22,0.15);
+  padding-left: 2rem;
+  margin: 3rem 0;
+}
+.quote-block p {
+  font-size: 1.4rem !important;
+  font-style: italic;
+  color: #1C1A16 !important;
+  line-height: 1.55;
+  margin: 0 !important;
+}
+
+/* ─── JOURNEY SECTION ──────────────────────────────────────────── */
+.journey-section {
+  padding: 6rem 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.journey-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid rgba(28,26,22,0.1);
+}
+.journey-step {
+  padding: 2.4rem;
+  border-right: 1px solid rgba(28,26,22,0.08);
+  border-bottom: 1px solid rgba(28,26,22,0.08);
+  position: relative;
+  transition: background 0.4s ease;
+}
+.journey-step:hover { background: rgba(28,26,22,0.02); }
+.journey-step:nth-child(2n) { border-right: none; }
+.journey-step:nth-last-child(-n+2) { border-bottom: none; }
+.journey-step.full { grid-column: 1 / -1; border-right: none; }
+.journey-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: rgba(28,26,22,0.25);
+  display: block;
+  margin-bottom: 0.8rem;
+}
+.journey-label {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: #1C1A16;
+  margin-bottom: 0.6rem;
+}
+.journey-step p {
+  font-size: 1.15rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(28,26,22,0.55);
+}
+.journey-step p em {
+  font-style: italic;
+  color: rgba(28,26,22,0.75);
+}
+
+/* ─── VALUES ───────────────────────────────────────────────────── */
+.values-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 0;
+  border-top: 1px solid rgba(28,26,22,0.1);
+  margin-top: 4rem;
+}
+.value-item {
+  padding: 2.4rem 1.5rem;
+  border-right: 1px solid rgba(28,26,22,0.08);
+  text-align: center;
+}
+.value-item:last-child { border-right: none; }
+.value-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  color: rgba(28,26,22,0.3);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.value-text {
+  font-style: italic;
+  font-size: 1.15rem;
+  color: rgba(28,26,22,0.6);
+  line-height: 1.6;
+}
+
+/* ─── CLOSING ──────────────────────────────────────────────────── */
+.closing-section {
+  padding: 6rem 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+}
+.closing-quote {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: #1C1A16;
+  max-width: 650px;
+  margin: 0 auto 2rem;
+}
+.closing-sub {
+  font-style: italic;
+  font-size: 1.1rem;
+  color: rgba(28,26,22,0.4);
+  margin-bottom: 3rem;
+}
+.btn-primary {
+  display: inline-block;
+  padding: 1rem 2.4rem;
+  background: #1C1A16;
+  color: #F7F4EF;
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s;
+}
+.btn-primary:hover { background: #3A3630; }
+
+
+footer {
+  border-top: 1px solid rgba(28,26,22,0.08);
+  padding: 3rem 1.5rem 2.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+
+
+
+
+
+
+
+.footer-logo {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  color: rgba(28,26,22,0.6);
+}
+.footer-tagline {
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(28,26,22,0.35);
+}
+.footer-origin {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: rgba(28,26,22,0.3);
+  text-transform: uppercase;
+}
+
+/* ─── FOOTER ───────────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid rgba(28,26,22,0.08);
+  padding: 3rem 1.5rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+.footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-left {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.footer-logo {
+  font-family: 'Cormorant SC', Georgia, serif;
+  font-size: 1rem;
+  letter-spacing: 0.35em;
+  color: rgba(28,26,22,0.6);
+}
+.footer-tagline {
+  font-style: italic;
+  font-size: 1rem;
+  color: rgba(28,26,22,0.28);
+}
+.footer-origin {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  color: rgba(28,26,22,0.25);
+  text-transform: uppercase;
+}
+.footer-icons {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.footer-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(28,26,22,0.2);
+  transition: color 0.3s;
+}
+.footer-icons a:hover { color: #8B7355; }
+.footer-icons svg { width: 14px; height: 14px; fill: currentColor; }
+
+/* ─── SCROLL REVEAL ────────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes riseIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── RESPONSIVE ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  body { cursor: auto; font-size: 17px; }
+  .cursor, .cursor-ring { display: none; }
+  .nav-links { display: none; }
+  .story-hero { min-height: auto; padding: 8rem 1.5rem 4rem; }
+  .story-h1 { font-size: clamp(2.6rem, 9vw, 4rem); }
+  .journey-grid { grid-template-columns: 1fr; }
+  .journey-step { border-right: none !important; }
+  .journey-step:last-child { border-bottom: none; }
+  .values-row { grid-template-columns: 1fr; }
+  .value-item { border-right: none !important; border-bottom: 1px solid rgba(28,26,22,0.08); }
+  .value-item:last-child { border-bottom: none; }
+  
+  
+  
+
+  
+  
+
+  
+  
+
+  .footer-row { flex-direction: column; gap: 1.2rem; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<nav>
+  <a href="index.html" class="nav-logo">Yogutide</a>
+  <ul class="nav-links">
+    <li><a href="manifesto.html">Manifesto</a></li>
+    <li><a href="story.html">Our Story</a></li>
+    <li><a href="index.html#founding" class="nav-btn">Waitlist</a></li>
+  </ul>
+</nav>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════ -->
+<section class="story-hero">
+  <p class="story-eyebrow">Our Story</p>
+  <h1 class="story-h1">We didn't want<br>to meet you<br>as a patient.</h1>
+  <p class="story-sub">Two scientists who spent years designing drugs to help the very ill &mdash; and decided that help can come decades earlier, in what you eat every day.</p>
+</section>
+
+<!-- ═══ DIVIDER ════════════════════════════════════════════════════ -->
+
+<!-- ═══ THE REALISATION ════════════════════════════════════════════ -->
+<section class="story-section">
+  <div class="story-inner reveal">
+    <p class="section-eyebrow">On beginnings</p>
+    <h2 class="section-title">The Quiet<br>Realisation.</h2>
+    <p class="section-tagline">What we learned by being too late.</p>
+    <div class="story-body">
+      <p>We are scientists. Our training is in computational structural biology and drug design &mdash; the mathematics of molecules, the architecture of proteins, the quiet, invisible labor of making medicines work at the atomic level. For years, that felt like purpose enough. You study a disease, you design a compound, you ensure it binds to its target, and you hope. You hope the trials work. You hope the funding holds. You hope that in ten, twelve, maybe fifteen years, someone gets better because of something you helped build. But along the way, you realize something much better.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIVIDER ════════════════════════════════════════════════════ -->
+
+<!-- ═══ THE PROBLEM ════════════════════════════════════════════════ -->
+<section class="story-section">
+  <div class="story-inner reveal">
+    <p class="section-eyebrow">On drug discovery</p>
+    <h2 class="section-title">The People<br>We Reached.</h2>
+    <div class="story-body">
+      <p>In pharma, you meet people at the worst moment of their lives. They are already terminally ill, or seriously ill, or so far along that the best you can offer is <em>more time</em> &mdash; not a different life.</p>
+      <p>And many never even get that. The drugs take too long. They cost too much. They arrive after the window has closed. You build something extraordinary in a lab, and by the time it reaches the world, the people who needed it most have already been failed by the timeline.</p>
+      <p>We kept asking the same question: <em>what if we had reached them earlier?</em></p>
+    </div>
+    <div class="quote-block">
+      <p>By the time a drug reaches a patient, their body has been fighting alone for years. We wanted to be there before the fight began.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIVIDER ════════════════════════════════════════════════════ -->
+
+<!-- ═══ THE SHIFT ══════════════════════════════════════════════════ -->
+<section class="story-section">
+  <div class="story-inner reveal">
+    <p class="section-eyebrow">On prevention</p>
+    <h2 class="section-title">From Treating<br>to Preventing.</h2>
+    <p class="section-tagline">The science is clear. We chose not to ignore it.</p>
+    <div class="story-body">
+      <p>The research we kept coming back to told the same story: many of the diseases we were trying to treat &mdash; metabolic disease, inflammation, gut dysbiosis, obesity, cognitive decline &mdash; can be delayed, reduced, or prevented entirely through nutrition and lifestyle.</p>
+      <p>Not with exotic compounds. Not with decade-long trials. With <em>what you eat, every day.</em></p>
+      <p>Food technology and consumer products let you intervene in someone's health years &mdash; even decades &mdash; before they become a patient. You don't need a prescription. You don't need a clinical trial. You need a better morning.</p>
+      <p>That's when we knew. We didn't want to design the next drug. We wanted to design the thing that means you never need it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIVIDER ════════════════════════════════════════════════════ -->
+
+<!-- ═══ THE JOURNEY ════════════════════════════════════════════════ -->
+<section class="journey-section" id="journey">
+  <p class="section-eyebrow reveal">The journey</p>
+  <h2 class="section-title reveal">How We Got Here.</h2>
+  <p class="section-tagline reveal">From structural biology to your kitchen table.</p>
+
+  <div class="journey-grid reveal">
+    <div class="journey-step">
+      <span class="journey-num">01</span>
+      <div class="journey-label">The Lab</div>
+      <p>Years in computational structural biology, designing drug candidates at the molecular level. Simulations, free energy calculations, protein dynamics. <em>The precision was beautiful. The timeline was not.</em></p>
+    </div>
+    <div class="journey-step">
+      <span class="journey-num">02</span>
+      <div class="journey-label">The Doubt</div>
+      <p>Clinical trials take 10+ years. Regulatory approval takes more. Real proof of concept &mdash; a patient getting better &mdash; is always over the horizon. <em>We wanted faster feedback, closer to life.</em></p>
+    </div>
+    <div class="journey-step">
+      <span class="journey-num">03</span>
+      <div class="journey-label">The Seeing</div>
+      <p>Working in pharma, watching drugs reach people who were already terminally ill. Too late, too expensive, too slow. <em>The system cures at the end. Nobody protects at the beginning.</em></p>
+    </div>
+    <div class="journey-step">
+      <span class="journey-num">04</span>
+      <div class="journey-label">The Decision</div>
+      <p>We left therapeutic development. Not because it doesn't matter &mdash; it does, profoundly &mdash; but because we saw a gap upstream. <em>Prevention has no waiting room.</em></p>
+    </div>
+    <div class="journey-step">
+      <span class="journey-num">05</span>
+      <div class="journey-label">The Pivot</div>
+      <p>Consumer food products. Faster iteration, quicker feedback, earlier impact. No health claims to start &mdash; just real ingredients, real science, and a product you can hold in your hand tomorrow. <em>Not in a decade.</em></p>
+    </div>
+    <div class="journey-step">
+      <span class="journey-num">06</span>
+      <div class="journey-label">The Mission</div>
+      <p>Build products that enter people's lives early. Shape everyday habits instead of treating late-stage disease. A probiotic drink today. A satiety platform tomorrow. <em>The long game, played from the start.</em></p>
+    </div>
+    <div class="journey-step full">
+      <span class="journey-num">→</span>
+      <div class="journey-label">Yogutide</div>
+      <p>A probiotic drink crafted by scientists, designed for the people we wish we could have reached sooner. Made in Oslo. Made for mornings. <em>The first good thing to start your day.</em></p>
+    </div>
+  </div>
+
+  <div class="values-row reveal">
+    <div class="value-item">
+      <div class="value-label">Our background</div>
+      <div class="value-text">Computational structural biology and drug design</div>
+    </div>
+    <div class="value-item">
+      <div class="value-label">Our conviction</div>
+      <div class="value-text">Prevention through nutrition, not treatment after disease</div>
+    </div>
+    <div class="value-item">
+      <div class="value-label">Our long-term aim</div>
+      <div class="value-text">Products that extend satiety, optimize metabolic wellness, thus prevent metabolic disease</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ DIVIDER ════════════════════════════════════════════════════ -->
+
+<!-- ═══ CLOSING ════════════════════════════════════════════════════ -->
+<section class="story-section">
+  <div class="story-inner reveal">
+    <p class="section-eyebrow">On what comes next</p>
+    <h2 class="section-title">We Chose to Enter<br>Your Life Early.</h2>
+    <div class="story-body">
+      <p>Not as doctors. Not as pharmacists. As the quiet thing in your morning that keeps you well.</p>
+      <p>We believe the most powerful intervention isn't a drug that arrives at the end. It's a habit that starts at the beginning — something simple, something daily, something that compounds over years into a body that doesn't need rescuing.</p>
+    </div>
+    <div class="quote-block">
+      <p>The best time to care for your health is long before you're a patient.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-row">
+    <div class="footer-left">
+      <span class="footer-logo">Yogutide</span>
+      <span class="footer-tagline">Life in Full.</span>
+    </div>
+    <span class="footer-origin">Oslo, Norway &mdash; Est. 2026</span>
+    <div class="footer-icons">
+      <a href="mailto:info&#64;yogutide.com" aria-label="Email"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+      <a href="https://www.instagram.com/yogutide" target="_blank" rel="noopener" aria-label="Instagram"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.054 1.97.24 2.43.403a4.08 4.08 0 011.47.957c.453.453.753.888.957 1.47.163.46.349 1.26.404 2.43.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.055 1.17-.241 1.97-.404 2.43a4.08 4.08 0 01-.957 1.47 4.08 4.08 0 01-1.47.957c-.46.163-1.26.349-2.43.404-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.055-1.97-.241-2.43-.404a4.08 4.08 0 01-1.47-.957 4.08 4.08 0 01-.957-1.47c-.163-.46-.349-1.26-.403-2.43C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.054-1.17.24-1.97.403-2.43a4.08 4.08 0 01.957-1.47A4.08 4.08 0 015.063 2.636c.46-.163 1.26-.349 2.43-.404C8.759 2.175 9.139 2.163 12 2.163M12 0C8.741 0 8.333.014 7.053.072 5.775.13 4.902.333 4.14.63a6.21 6.21 0 00-2.245 1.462A6.21 6.21 0 00.433 4.337C.136 5.1-.067 5.973.009 7.25.067 8.53.081 8.938.081 12.197c0 3.259.014 3.668.072 4.948.058 1.277.261 2.15.558 2.913a6.21 6.21 0 001.462 2.245 6.21 6.21 0 002.245 1.462c.762.297 1.636.5 2.913.558C8.53 24.381 8.938 24.395 12 24.395s3.47-.014 4.75-.072c1.277-.058 2.15-.261 2.913-.558a6.21 6.21 0 002.245-1.462 6.21 6.21 0 001.462-2.245c.297-.762.5-1.636.558-2.913.058-1.28.072-1.689.072-4.948s-.014-3.668-.072-4.948c-.058-1.277-.261-2.15-.558-2.913a6.21 6.21 0 00-1.462-2.245A6.21 6.21 0 0019.663.63C18.9.333 18.027.13 16.75.072 15.47.014 15.062 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+      <a href="https://www.tiktok.com/@yogutide" target="_blank" rel="noopener" aria-label="TikTok"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.27 6.27 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.75a8.18 8.18 0 004.77 1.52V6.84a4.84 4.84 0 01-1-.15z"/></svg></a>
+      <a href="https://www.linkedin.com/company/yogutide" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+var dot=document.querySelector('.cursor'),ring=document.querySelector('.cursor-ring'),mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px'});
+(function loop(){rx+=(mx-rx)*0.15;ry+=(my-ry)*0.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a, button').forEach(function(el){
+  el.addEventListener('mouseenter',function(){ring.style.width='52px';ring.style.height='52px';ring.style.borderColor='rgba(28,26,22,0.5)'});
+  el.addEventListener('mouseleave',function(){ring.style.width='36px';ring.style.height='36px';ring.style.borderColor='rgba(28,26,22,0.25)'});
+});
+var reveals=document.querySelectorAll('.reveal');
+var obs=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.12});
+reveals.forEach(function(el){obs.observe(el)});
+setTimeout(function(){reveals.forEach(function(el){el.classList.add('visible')})},2500);
+</script>
+</body>
+</html>
