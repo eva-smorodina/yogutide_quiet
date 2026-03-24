@@ -186,7 +186,7 @@ nav::before {
   font-size: 1.2rem; font-weight: 300; color: rgba(28,26,22,0.5); line-height: 1.7;
 }
 
-.stepback-body { max-width: 720px; }
+.stepback-body { max-width: 960px; }
 .stepback-body p {
   font-size: 1.2rem; font-weight: 300; line-height: 1.85;
   color: rgba(28,26,22,0.6); margin-bottom: 1.5rem; letter-spacing: 0.01em;
@@ -295,6 +295,34 @@ footer {
 }
 
 /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+
+/* ─── MOBILE NAV ───────────────────────────────────────────────── */
+.nav-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  width: 24px;
+  height: 18px;
+  position: relative;
+  z-index: 201;
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: #1C1A16;
+  position: absolute;
+  left: 0;
+  transition: all 0.3s ease;
+}
+.nav-toggle span:nth-child(1) { top: 0; }
+.nav-toggle span:nth-child(2) { top: 8px; }
+.nav-toggle span:nth-child(3) { top: 16px; }
+.nav-toggle.open span:nth-child(1) { top: 8px; transform: rotate(45deg); }
+.nav-toggle.open span:nth-child(2) { opacity: 0; }
+.nav-toggle.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
 @media (max-width: 1024px) {
   body { font-size: 17px; }
   .pillars-dark { grid-template-columns: 1fr 1fr; }
@@ -303,7 +331,24 @@ footer {
 @media (max-width: 768px) {
   body { cursor: auto; font-size: 17px; }
   .cursor, .cursor-ring { display: none; }
-  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .nav-links {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #F7F4EF;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    z-index: 200;
+  }
+  .nav-links.mobile-open { display: flex; }
+  .nav-links a { font-size: 0.9rem; }
+  .nav-btn { margin-left: 0 !important; }
+  .values-row { grid-template-columns: 1fr !important; }
+  .value-item { border-right: none !important; border-bottom: 1px solid rgba(28,26,22,0.08); }
+  .value-item:last-child { border-bottom: none; }
   .manifesto-hero { min-height: auto; padding: 8rem 1.5rem 4rem; }
   .hero-h1 { font-size: clamp(2.6rem, 9vw, 4rem); }
   .manifesto-section, .stepback-section { padding: 4rem 1.5rem; }
@@ -323,7 +368,6 @@ footer {
   
   
 
-  .footer-row { flex-direction: column; gap: 1.2rem; align-items: flex-start; }
 }
 </style>
 </head>
@@ -350,6 +394,10 @@ footer {
 
 <!-- ═══ MANIFESTO ══════════════════════════════════════════════════ -->
 <section class="manifesto-section">
+  <p class="section-eyebrow reveal">Eight beliefs</p>
+  <h2 class="manifesto-title-large reveal">What We Stand For.</h2>
+  <p class="manifesto-tagline reveal">The principles behind everything we make.</p>
+
   <div class="manifesto-stanzas reveal">
     <div class="stanza full">
       <span class="stanza-num">01</span>
@@ -423,7 +471,7 @@ footer {
       <p>That world wasn't slower because people had less ambition. It was slower because they understood that <em>presence is not a waste of time.</em> It is the point of it.</p>
       <p>We make things the same way. Simply. With care. With the belief that what you put into your body should ask you to slow down, not speed up.</p>
       <div class="quote-block">
-        <p>"What really matters to you has been there all along —<br>waiting for you to look."</p>
+        <p>"What really matters to you has been there all along — waiting for you to look."</p>
       </div>
     </div>
   </div>
@@ -460,6 +508,9 @@ var obs=new IntersectionObserver(function(entries){
 },{threshold:0.12});
 reveals.forEach(function(el){obs.observe(el)});
 setTimeout(function(){reveals.forEach(function(el){el.classList.add('visible')})},2500);
+var toggle=document.querySelector('.nav-toggle');
+var navLinks=document.querySelector('.nav-links');
+if(toggle){toggle.addEventListener('click',function(){toggle.classList.toggle('open');navLinks.classList.toggle('mobile-open')})}
 </script>
 </body>
 </html>
