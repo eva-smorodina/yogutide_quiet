@@ -446,4 +446,6 @@ var obs=new IntersectionObserver(function(entries){
 reveals.forEach(function(el){obs.observe(el)});
 setTimeout(function(){reveals.forEach(function(el){el.classList.add('visible')})},100);
 var toggle=document.querySelector('.nav-toggle'),navLinks=document.querySelector('.site-nav');
-if(toggle){toggle.addEventListener('click',function(){toggle.classList.toggle('open');navLinks.classList.toggle('mobile-open')});navLinks.querySelectorAll('a').forEach(function(
+if(toggle){toggle.addEventListener('click',function(){toggle.classList.toggle('open');navLinks.classList.toggle('mobile-open')});navLinks.querySelectorAll('a').forEach(function(a){a.addEventListener("click",function(){toggle.classList.remove("open");navLinks.classList.remove("mobile-open")})});}</script>
+</body>
+</html>
