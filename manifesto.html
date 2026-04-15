@@ -26,7 +26,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── SITE HEADER (brief-style dark bar) ─────────────── */
 .site-header{background:var(--ch);position:fixed;top:0;left:0;right:0;z-index:200}
-.site-header-inner{padding:14px 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.site-header-inner{padding:14px 3rem;display:flex;align-items:center;justify-content:space-between;max-width:960px;margin-left:auto;margin-right:auto;width:100%}
 .site-logo{font-family:'Cormorant SC',serif;font-size:1.1rem;letter-spacing:0.4em;color:var(--pa);text-decoration:none}
 .site-nav{display:flex;align-items:center;gap:0;list-style:none}
 .site-nav a{font-family:'DM Mono',monospace;font-size:0.62rem;letter-spacing:0.2em;color:var(--dim);text-decoration:none;text-transform:uppercase;padding:0 1.2rem;transition:color 0.2s}
@@ -114,8 +114,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .img-strip img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
 
 /* ── CTA DARK BLOCK ──────────────────────────────── */
-.cta-dark{background:var(--ch);padding:4rem 1.5rem}
-.cta-dark-inner{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center}
+.cta-dark{background:var(--ch);padding:5rem 3rem;width:100%;max-width:100%;margin-left:auto;margin-right:auto}
+.cta-dark-inner{display:grid;grid-template-columns:1fr auto;gap:3rem;align-items:center;max-width:960px;margin-left:auto;margin-right:auto;width:100%}
 .cta-dark-title{font-family:'Cormorant SC',serif;font-size:2rem;font-weight:300;letter-spacing:0.06em;color:var(--pa);margin-bottom:10px}
 .cta-dark-body{font-size:1rem;font-style:italic;color:var(--oa);line-height:1.65;max-width:500px}
 .cta-dark-right{text-align:right}
@@ -125,7 +125,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 /* ── DARK FOOTER ─────────────────────────────────── */
 footer{background:var(--ch)}
-.footer-inner{padding:16px 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.footer-inner{padding:16px 3rem;display:flex;align-items:center;justify-content:space-between;max-width:960px;margin-left:auto;margin-right:auto;width:100%}
 .footer-left{display:flex;align-items:baseline;gap:14px}
 .footer-logo{font-family:'Cormorant SC',serif;font-size:1rem;letter-spacing:0.35em;color:rgba(247,244,239,0.55)}
 .footer-tagline{font-style:italic;font-size:0.95rem;color:rgba(196,184,165,0.5)}
